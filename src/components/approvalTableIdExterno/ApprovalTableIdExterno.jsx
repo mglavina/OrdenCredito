@@ -6,10 +6,29 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import styled from '@emotion/styled';
+import ApprovalButton from './atom/approvalButton/ApprovalButton';
+import ApprovalBackdrop from '../backdrop/Backdrop';
 
-const ApprovalTableIdExterno = ({data}) => {
+const TableContainerIdExterno = styled(TableContainer)`
+    width: 80vw;
+`;
+
+const ApprovalTableIdExterno = ({data,proveedor}) => {
+    const[rowWithButton, setRowWithButton] = React.useState(null)
+    React.useEffect(() => {
+      let dataNotApproved = data.filter(aprobacion => aprobacion.aprobador == null)
+                                .map(aprobacion =>{
+        if (!aprobacion.fecha && !aprobacion.aprobador) {
+            return aprobacion.orden
+        }
+      })
+      console.log(dataNotApproved);
+      setRowWithButton(Math.min(...dataNotApproved)) 
+    }, [])
+    
   return (
-    <TableContainer component={Paper}>
+    <TableContainerIdExterno component={Paper}>
         <Table sx={{ minWidth: 650 ,boxShadow:3}} aria-label="simple table">
             <TableHead>
             <TableRow
@@ -26,18 +45,25 @@ const ApprovalTableIdExterno = ({data}) => {
             >
             {data.map((order) => (
                 <TableRow
-                key={order.transaccionid}
+                key={order.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0},cursor:'pointer' }}
                 >
                     <TableCell component="th" scope="row">{order.orden}</TableCell>
-                    <TableCell component="th" scope="row">{order.fecha_aprob}</TableCell>
+                    <TableCell component="th" scope="row">{order.fecha}</TableCell>
                     <TableCell align="left">{order.responsable}</TableCell>
-                    <TableCell align="left">{order.aprobo}</TableCell>
+                    <TableCell align="left">{rowWithButton == order.orden?
+                                            <ApprovalBackdrop
+                                            proveedor={proveedor}
+                                            Orden={order.orden}
+                                            Aprobador={"GOLIBANO"}
+                                            />:
+                                            order.aprobador}
+                    </TableCell>
                 </TableRow>
             ))}
             </TableBody>
         </Table>
-    </TableContainer>
+    </TableContainerIdExterno>
   )
 }
 

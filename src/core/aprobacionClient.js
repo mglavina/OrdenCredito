@@ -6,10 +6,7 @@ export default class AprobacionClient {
     Orden
     OrdenNivel
     constructor(orden) {
-        this.AprobacionCliente = axios.create({headers: {
-            "access-control-allow-methods":"GET, PUT, POST, DELETE, HEAD, OPTIONS",
-            "access-control-allow-origin": "http://localhost:3000"
-        },
+        this.AprobacionCliente = axios.create({
             baseURL: APROBACION_URL
         })
         this.Orden = orden
@@ -18,13 +15,24 @@ export default class AprobacionClient {
     }
 
     getGrillaIdExterno = async () => {
-        //let res = await this.AprobacionCliente.get(`/api/OrdenCredito/WorkFlowAprobada/${this.Orden.identificacionexterna}`)
         let res = await this.AprobacionCliente.get(`/api/OrdenCredito/WorkFlowAprobada/${this.Orden.transaccionid}`)
         return res.data
     }
     getGrillaIdGerencia = async () => {
-        //let res = await this.AprobacionCliente.get(`/api/OrdenCredito/WorkFlow/${this.Orden.gerenciacodigo}/${this.OrdenNivel}/${this.Orden.identificacionexterna}`)
-        let res = await axios.get("https://aprobacion.azurewebsites.net/api/OrdenCredito/WorkFlow/CUYO/2/7")
+        let res = await this.AprobacionCliente.get(`/api/OrdenCredito/WorkFlow/${this.Orden.gerenciacodigo}/${this.OrdenNivel}/${this.Orden.identificacionexterna}`)
+        console.log(res)
+        return res.data
+    }
+    postAprobacion = async (Orden,Aprobador) => {
+        const id = this.Orden.transaccionid
+        let res = await this.AprobacionCliente.post("Api/OrdenCredito/PostAprobacion",{id,Aprobador,Orden})
+        console.log(res.data)
+        return res.data
+    }
+    postRechazo = async (Orden,Aprobador,Motivo) => {
+        const id = this.Orden.transaccionid
+        let res = await this.AprobacionCliente.post("api/OrdenCredito/PostRechazo",{id,Aprobador,Orden,Motivo})
+        console.log(res.data)
         return res.data
     }
 }

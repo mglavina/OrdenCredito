@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import React from 'react'
 
 const DetailCardContainer = styled.article`
+    margin-top: 10px;
     width: 80vw;
     height: 100%;
     background-color: white;

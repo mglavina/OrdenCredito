@@ -11,8 +11,9 @@ const ApprovalTable = ({proveedor}) => {
         const client = new AprobacionClient(proveedor)
         try {
             console.log();
-            const data = await client.getGrillaIdExterno()
-            setData(data)
+            const dataIdExterno = await client.getGrillaIdExterno()
+            setData(dataIdExterno)
+            setLoading(false)
         } catch (err) {
             setLoading(false)
             setError(err)
@@ -26,7 +27,7 @@ const ApprovalTable = ({proveedor}) => {
   return (
     <>  
         {loading && <p>Loading</p>}
-        {data && <ApprovalTableIdExterno data={data} />}
+        {(data && data.length > 0) && <ApprovalTableIdExterno data={data} proveedor={proveedor} />}
         {error && <ApprovalTableIdGerencia proveedor={proveedor}/>}
     </>
   )

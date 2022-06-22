@@ -28,7 +28,7 @@ const ApprovalTable = ({proveedor}) => {
     <>  
         {loading && <p>Loading</p>}
         {(data && data.length > 0) && <ApprovalTableIdExterno data={data} proveedor={proveedor} />}
-        {error && <ApprovalTableIdGerencia proveedor={proveedor}/>}
+        {(!data || data.length <= 0) &&  <ApprovalTableIdGerencia proveedor={proveedor}/>}
     </>
   )
 }

@@ -12,3 +12,6 @@ a{
     text-decoration: none;
     color: black;
 }
+#rowRejected{
+    background-color: rgb(235, 114, 114);
+}

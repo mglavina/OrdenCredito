@@ -21,8 +21,9 @@ const Motivo = ({motivo}) => {
             Orden rechazada !!
         </h3>
         <span>
-            <strong>Motivo </strong>: {motivo} 
+            <strong>Motivo </strong>: {motivo}
         </span>
+        <small>En la grilla de abajo se verá destacado en rojo el paso rechazado.</small>
     </MotivoContainer>
   )
 }

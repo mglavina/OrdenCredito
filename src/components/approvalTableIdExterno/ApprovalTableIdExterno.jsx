@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import styled from '@emotion/styled';
 import ApprovalBackdrop from '../backdrop/Backdrop';
 import Motivo from '../motivo/Motivo';
+import useGlobalContext from '../../hooks/useGlobalContext';
 
 const TableContainerIdExterno = styled(TableContainer)`
     width: 80vw;
@@ -17,6 +18,9 @@ const TableContainerIdExterno = styled(TableContainer)`
 const ApprovalTableIdExterno = ({data,proveedor}) => {
     const[rowWithButton, setRowWithButton] = React.useState(null)
     const[rejected, setRejected] = React.useState(null)
+    const {global,} = useGlobalContext()
+    const {userName} = global
+
     React.useEffect(() => {
       let dataNotApproved = data.filter(aprobacion => aprobacion.aprobador == null)
                                 .map(aprobacion =>{
@@ -58,11 +62,11 @@ const ApprovalTableIdExterno = ({data,proveedor}) => {
                         <TableCell component="th" scope="row">{order.orden}</TableCell>
                         <TableCell component="th" scope="row">{order.fecha}</TableCell>
                         <TableCell align="left">{order.responsable}</TableCell>
-                        <TableCell align="left">{rowWithButton == order.orden && !rejected ?
+                        <TableCell align="left">{rowWithButton == order.orden && !rejected && order.responsable == userName ?
                                                 <ApprovalBackdrop
                                                 proveedor={proveedor}
                                                 Orden={order.orden}
-                                                Aprobador={"GOLIBANO"}
+                                                Aprobador={userName}
                                                 />:
                                                 order.aprobador}
                         </TableCell>

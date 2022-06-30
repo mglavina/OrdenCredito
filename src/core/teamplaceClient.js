@@ -1,6 +1,6 @@
 import axios from "axios";
+import { TEAMPLACE_URL } from "../constants/constant";
 
-const TEAMPLACE_URL = process.env.REACT_APP_BASE_URL
 export default class TeamplaceClient {
     TeamplaceClient
     constructor() {

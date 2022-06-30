@@ -1,13 +1,16 @@
 import axios from "axios";
 import { levelCalculator } from "../utils/utils";
-const APROBACION_URL = process.env.REACT_APP_BASE_URL_APROBACION
+import { APROBACION_URL } from "../constants/constant";
+
 export default class AprobacionClient {
     AprobacionCliente
     Orden
     OrdenNivel
     constructor(orden) {
         this.AprobacionCliente = axios.create({
-            baseURL: APROBACION_URL
+            baseURL: APROBACION_URL,
+            headers: {'X-Custom-Header': 'foobar'}, 
+            withCredentials: true
         })
         this.Orden = orden
         const importeTotal = Number(orden.importetotal) >= 0 ? Number(orden.importetotal) : Number(orden.importetotal) * (-1)  
@@ -30,6 +33,7 @@ export default class AprobacionClient {
         return res.data
     }
     postRechazo = async (Orden,Aprobador,Motivo) => {
+        console.log(Aprobador);
         const id = this.Orden.transaccionid
         let res = await this.AprobacionCliente.post("api/OrdenCredito/PostRechazo",{id,Aprobador,Orden,Motivo})
         console.log(res.data)

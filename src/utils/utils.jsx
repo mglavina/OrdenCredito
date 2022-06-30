@@ -12,3 +12,9 @@ export const levelCalculator = (importeTotal) => {
     }
     return 3 
 }
+
+export const getUserNameFromWindowsLogin = (windowsJson) => {
+    const {user_claims} = windowsJson
+    const userName = user_claims.find(claim => claim.typ == "name")
+    return userName.val
+}

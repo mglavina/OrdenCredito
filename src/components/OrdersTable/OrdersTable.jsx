@@ -8,18 +8,18 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Link, useNavigate } from 'react-router-dom';
 import Spinner from '../spinner/Spinner';
-import useProveedores from '../../hooks/useProveedores';
+import useGlobalContext from '../../hooks/useGlobalContext';
 import TeamplaceClient from '../../core/teamplaceClient';
 
 export default function OrdersTable() {
-    const {proveedor,setProveedor} = useProveedores()
+    const {global,setGlobal} = useGlobalContext()
     const [orders , setOrders] = React.useState([])
     const [loading , setLoading] = React.useState(false)
     const [error , setErrors] = React.useState(null)
     const navigate = useNavigate()
 
     const handleClick = (order) => {
-        setProveedor(order)
+        setGlobal({...global,proveedor : order})
         navigate(`/detail/${order.identificacionexterna}/?ordenOrigin=${JSON.stringify(order)}`)
     }
 

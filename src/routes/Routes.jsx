@@ -9,7 +9,7 @@ function AppRoutes() {
     const renderRedirect = () => {
         let host = window.location.protocol + "//" + window.location.host;
         host = host.replace('localhost', "127.0.0.1")
-        window.location.replace(APROBACION_URL + "/.auth/login/aad?post_login_redirect_url="+ host)
+        window.location.replace(APROBACION_URL + "/.auth/login/aad?post_login_redirect_uri="+ host)
         return null;
     }
     

@@ -68,7 +68,7 @@ const Header = () => {
             &&
         <UserNameStyled>
             <span>
-                {global.userName}
+                {global.userId}
             </span>
             <LogoutButtonStyled onClick={handleLogout}>
                 <LogoutIcon />

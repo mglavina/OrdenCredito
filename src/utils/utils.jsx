@@ -18,3 +18,9 @@ export const getUserNameFromWindowsLogin = (windowsJson) => {
     const userName = user_claims.find(claim => claim.typ == "name")
     return userName.val
 }
+
+export const getIdFromMail = (windowsJson) => {
+    const {user_id} = windowsJson
+    const user = user_id.substring(0,user_id.indexOf("@"))
+    return user
+}

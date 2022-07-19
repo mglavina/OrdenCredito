@@ -19,7 +19,7 @@ const ApprovalTableIdExterno = ({data,proveedor}) => {
     const[rowWithButton, setRowWithButton] = React.useState(null)
     const[rejected, setRejected] = React.useState(null)
     const {global,} = useGlobalContext()
-    const {userName} = global
+    const {userId} = global
 
     React.useEffect(() => {
       let dataNotApproved = data.filter(aprobacion => aprobacion.aprobador == null)
@@ -62,11 +62,11 @@ const ApprovalTableIdExterno = ({data,proveedor}) => {
                         <TableCell component="th" scope="row">{order.orden}</TableCell>
                         <TableCell component="th" scope="row">{order.fecha}</TableCell>
                         <TableCell align="left">{order.responsable}</TableCell>
-                        <TableCell align="left">{rowWithButton == order.orden && !rejected && order.responsable == userName ?
+                        <TableCell align="left">{rowWithButton == order.orden && !rejected && order.responsable == userId ?
                                                 <ApprovalBackdrop
                                                 proveedor={proveedor}
                                                 Orden={order.orden}
-                                                Aprobador={userName}
+                                                Aprobador={userId}
                                                 />:
                                                 order.aprobador}
                         </TableCell>
@@ -84,7 +84,7 @@ const ApprovalTableIdExterno = ({data,proveedor}) => {
                                                 <ApprovalBackdrop
                                                 proveedor={proveedor}
                                                 Orden={order.orden}
-                                                Aprobador={"GOLIBANO"}
+                                                Aprobador={userId}
                                                 />:
                                                 order.aprobador}
                         </TableCell>

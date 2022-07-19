@@ -5,7 +5,8 @@ const globalState = createContext({global:{
     user:null,
     proovedor:null,
     error:null,
-    userName:null
+    userName:null,
+    userId:null
 }, setGlobal : () => {}
 })
 

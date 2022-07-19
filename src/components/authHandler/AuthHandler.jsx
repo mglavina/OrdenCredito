@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react'
 import useGlobalContext from '../../hooks/useGlobalContext'
 import getUser from '../../core/getUser'
-import { getUserNameFromWindowsLogin } from '../../utils/utils'
+import { getUserNameFromWindowsLogin, getIdFromMail} from '../../utils/utils'
 
 const AuthHandler = ({children}) => {
 const {global,setGlobal} = useGlobalContext()
@@ -11,7 +11,8 @@ const {global,setGlobal} = useGlobalContext()
             .then(res => {
                 console.log("then");
                 const userName = getUserNameFromWindowsLogin(res.data[0]) 
-                setGlobal({...global,user:res.data[0],userName,error:false})
+                const userId = getIdFromMail(res.data[0]) 
+                setGlobal({...global,user:res.data[0],userName,userId,error:false})
             }) 
             .catch(err => {
                 console.log(err);

@@ -17,4 +17,8 @@ export default class TeamplaceClient {
         let res = await this.TeamplaceClient.get(`/Actions/getOrdenCreditoDetalle/${identificacionExterno}`)
         return res.data
     }
+    postValidateCreditOrder = async (identificacionExterno,resultado) => {
+        let res = await this.TeamplaceClient.get(`/Actions/validarOrdenCredito/${identificacionExterno}/${resultado}`)
+        return res.data
+    }
 }

@@ -17,6 +17,7 @@ const TableContainerIdExterno = styled(TableContainer)`
 
 const ApprovalTableIdExterno = ({data,proveedor}) => {
     const[rowWithButton, setRowWithButton] = React.useState(null)
+    const[lastRow, setLastRow] = React.useState(null)
     const[rejected, setRejected] = React.useState(null)
     const {global,} = useGlobalContext()
     const {userId} = global
@@ -28,10 +29,12 @@ const ApprovalTableIdExterno = ({data,proveedor}) => {
             return aprobacion.orden
         }
       })
+      console.log(dataNotApproved);
       const rejected = data.find(aprobacion => aprobacion.rechazo == 1)
       setRejected(rejected)
       console.log(dataNotApproved);
-      setRowWithButton(Math.min(...dataNotApproved)) 
+      setRowWithButton(Math.min(...dataNotApproved))
+      setLastRow(Math.max(...data.map(aprobacion => aprobacion.orden))) 
     }, [])
     
   return (
@@ -67,6 +70,7 @@ const ApprovalTableIdExterno = ({data,proveedor}) => {
                                                 proveedor={proveedor}
                                                 Orden={order.orden}
                                                 Aprobador={userId.toUpperCase()}
+                                                UltimaFila={order.orden == lastRow}
                                                 />:
                                                 order.aprobador}
                         </TableCell>
@@ -80,13 +84,7 @@ const ApprovalTableIdExterno = ({data,proveedor}) => {
                         <TableCell component="th" scope="row">{order.orden}</TableCell>
                         <TableCell component="th" scope="row">{order.fecha}</TableCell>
                         <TableCell align="left">{order.responsable}</TableCell>
-                        <TableCell align="left">{rowWithButton == order.orden && !rejected ?
-                                                <ApprovalBackdrop
-                                                proveedor={proveedor}
-                                                Orden={order.orden}
-                                                Aprobador={userId}
-                                                />:
-                                                order.aprobador}
+                        <TableCell align="left">{order.aprobador}
                         </TableCell>
                         <TableCell align="left">{order.rechazo == 1 ? "Si" : "-"}</TableCell>
                     </TableRow>

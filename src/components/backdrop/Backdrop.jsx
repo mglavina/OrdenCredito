@@ -2,8 +2,10 @@ import * as React from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Button from '@mui/material/Button';
 import AprobacionClient from '../../core/aprobacionClient';
+import TeamplaceClient from '../../core/teamplaceClient';
 import styled from '@emotion/styled';
 import {useNavigate} from 'react-router-dom'
+import { RESULTADOS } from '../../constants/constant';
 
 const ButtonsContainer = styled.div`
     width: 100%;
@@ -58,12 +60,13 @@ const CloseButton = styled.button`
     cursor: pointer;
 `
 
-export default function ApprovalBackdrop({proveedor, Orden, Aprobador}) {
+export default function ApprovalBackdrop({proveedor, Orden, Aprobador,UltimaFila}) {
   const [open, setOpen] = React.useState(false);
   const [rechazar, setRechazar] = React.useState(false);
   const [motivo, setMotivo] = React.useState(false);
   const [status, setStatus] = React.useState(null);
-  const client = new AprobacionClient(proveedor)
+  const clientAprobacion = new AprobacionClient(proveedor)
+  const clientTeamplace = new TeamplaceClient()
   const navigate = useNavigate()
 
   const handleClose = () => {
@@ -92,8 +95,12 @@ navigate(0)
   };
 
   const postAprobacion = async () => {
-      const res = await client.postAprobacion(Orden, Aprobador)
-      console.log(res);
+      const resAprobacion = await clientAprobacion.postAprobacion(Orden, Aprobador)
+      if(UltimaFila){
+        const resTeamplace = await clientTeamplace.postValidateCreditOrder(proveedor.identificacionexterna, RESULTADOS.APROBADO)
+        console.log(resTeamplace);
+      }
+      console.log(resAprobacion);
       reloadPage()
   }
 
@@ -102,8 +109,10 @@ navigate(0)
         setMotivo("error")
         return
     }
-      const res = await client.postRechazo(Orden, Aprobador,motivo)
-      console.log(res);
+      const resAprobacion = await clientAprobacion.postRechazo(Orden, Aprobador,motivo)
+      const resTeamplace = await clientTeamplace.postValidateCreditOrder(proveedor.identificacionexterna,RESULTADOS.RECHAZADO)
+      console.log(resAprobacion);
+      console.log(resTeamplace);
       reloadPage()
   }
 
@@ -148,33 +157,3 @@ navigate(0)
     </div>
   );
 }
-
-/* 
-   import styled from '@emotion/styled'
-import React from 'react'
-import AprobacionClient from '../../../../core/aprobacionClient'
-
-const ButtonStyled = styled.button`
-    padding:5px 16px;
-    border: none;
-    border-radius: 2px;
-    background-color: #bfc0c2;
-    cursor: pointer;
-    &:active{
-        background-color: #818283;
-    }
-`
-const ApprovalButton = ({proveedor, Orden, Aprobador}) => {
-    const client = new AprobacionClient(proveedor)
-    const postAprobacion = async () => {
-        const res = await client.postAprobacion(Orden, Aprobador)
-        console.log(res);
-    }
-    
-  return (
-    <ButtonStyled onClick={() => postAprobacion()}>Aprobar</ButtonStyled>
-  )
-}
-
-export default ApprovalButton 
-*/

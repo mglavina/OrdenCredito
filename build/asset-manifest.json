@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.9a7a81d8.css",
-    "main.js": "/static/js/main.0377037e.js",
+    "main.js": "/static/js/main.59107404.js",
     "static/media/logo_iram-transparent-responsive.png": "/static/media/logo_iram-transparent-responsive.9444fe1e732f3962cbaf.png",
     "index.html": "/index.html",
     "main.9a7a81d8.css.map": "/static/css/main.9a7a81d8.css.map",
-    "main.0377037e.js.map": "/static/js/main.0377037e.js.map"
+    "main.59107404.js.map": "/static/js/main.59107404.js.map"
   },
   "entrypoints": [
     "static/css/main.9a7a81d8.css",
-    "static/js/main.0377037e.js"
+    "static/js/main.59107404.js"
   ]
 }

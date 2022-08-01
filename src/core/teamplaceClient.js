@@ -5,20 +5,22 @@ export default class TeamplaceClient {
     TeamplaceClient
     constructor() {
         this.TeamplaceClient = axios.create({
-            baseURL: TEAMPLACE_URL
+            baseURL: TEAMPLACE_URL,
+            headers: {'X-Custom-Header': 'foobar'}, 
+            withCredentials: true
         })
     }
 
-    getGrillaHome = async () => {
-        let res = await this.TeamplaceClient.get(`/Actions/getOrdenCredito`)
+    getGrillaHome = async (userName) => {
+        let res = await this.TeamplaceClient.get(`/api/OrdenesCredito/GetOrdenesDeCredito/${userName}`)
         return res.data
     }
     getGrillaDetail = async (identificacionExterno) => {
-        let res = await this.TeamplaceClient.get(`/Actions/getOrdenCreditoDetalle/${identificacionExterno}`)
+        let res = await this.TeamplaceClient.get(`/api/OrdenesCredito/GetOrdenDeCredito/${identificacionExterno}`)
         return res.data
     }
     postValidateCreditOrder = async (identificacionExterno,resultado) => {
-        let res = await this.TeamplaceClient.get(`/Actions/validarOrdenCredito/${identificacionExterno}/${resultado}`)
+        let res = await this.TeamplaceClient.post(`/api/OrdenesCredito/ValidarOrdenDeCredito/${identificacionExterno}/${resultado}`)
         return res.data
     }
 }

@@ -12,14 +12,14 @@ const {global,setGlobal} = useGlobalContext()
                 console.log("then");
                 const userName = getUserNameFromWindowsLogin(res.data[0]) 
                 const userId = getIdFromMail(res.data[0]) 
-                setGlobal({...global,user:res.data[0],userName,userId,error:false})
+                setGlobal({...global,user:res.data[0],userName,userId,error:false,loadingUser : false})
             }) 
             .catch(err => {
                 console.log(err);
                 setGlobal({...global,loadingUser : false,error:{ statusCode: 401, estado: true}})
          })
     }, [])
-
+    console.log(global);
     return (
         global?.loadingUser ?
         <div> 

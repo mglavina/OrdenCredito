@@ -26,7 +26,7 @@ export default function OrdersTable() {
     const componentMount = async () => {
         const client = new TeamplaceClient()
         try {
-            const data = await client.getGrillaHome()
+            const data = await client.getGrillaHome(global.userId)
             console.log(data);
             setOrders(data)
             setLoading(false)
@@ -43,7 +43,7 @@ export default function OrdersTable() {
         componentMount()
     }, [])
 
-    
+    console.log(global);
     return (
         <>
             { loading && <Spinner ></Spinner>}
@@ -59,8 +59,9 @@ export default function OrdersTable() {
                         <TableCell sx={{ width: 140 }}>Fecha</TableCell>
                         <TableCell align="left">Importe Total</TableCell>
                         <TableCell align="left">Motivo</TableCell>
-                        <TableCell align="left">Proveedor</TableCell>
+                        <TableCell align="left">Cliente</TableCell>
                         <TableCell align="left">Refacturar</TableCell>
+                        <TableCell align="left">Responsable</TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody
@@ -79,6 +80,7 @@ export default function OrdersTable() {
                             <TableCell align="left">{order.motivo}</TableCell>
                             <TableCell align="left">{order.proveedor}</TableCell>
                             <TableCell align="left">{order.refacturar ? "Si" : "No"}</TableCell>
+                            <TableCell align="left">{order.responsable ? order.responsable.toUpperCase() : "-"}</TableCell>
                         </TableRow>
                     ))}
                     </TableBody>

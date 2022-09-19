@@ -20,6 +20,11 @@ jobs:
           submodules: true
       - name: Build And Deploy
         id: builddeploy
+        env:
+          REACT_APP_BASE_URL : "https://aprobacion.azurewebsites.net"
+          REACT_APP_BASE_URL_APROBACION : "https://aprobacion.azurewebsites.net"
+          REACT_APP_LEVEL_1 : 55000
+          REACT_APP_LEVEL_2 : 110000
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GENTLE_HILL_02BA0430F }}

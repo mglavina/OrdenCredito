@@ -19,8 +19,10 @@ export default function OrdersTable() {
     const navigate = useNavigate()
 
     const handleClick = (order) => {
+        console.log(order);
         setGlobal({...global,proveedor : order})
-        navigate(`/detail/${order.identificacionexterna}/?ordenOrigin=${JSON.stringify(order)}`)
+        const orderWithoutAmp = JSON.stringify(order).replace('&','%26')
+        navigate(`/detail/${order.identificacionexterna}/?ordenOrigin=${orderWithoutAmp}`)
     }
 
     const componentMount = async () => {

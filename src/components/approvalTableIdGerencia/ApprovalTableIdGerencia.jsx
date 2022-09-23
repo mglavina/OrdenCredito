@@ -18,7 +18,7 @@ const ApprovalTableIdGerencia = ({proveedor}) => {
     const [error, setError] = React.useState(null)
     const [loading, setLoading] = React.useState(false)
     const componentMount = async () => {
-        console.log(proveedor);
+        console.log("Proveedor",proveedor);
         const client = new AprobacionClient(proveedor)
         try {
             setLoading(false)

@@ -65,7 +65,15 @@ const ApprovalTableIdExterno = ({data,proveedor}) => {
                         <TableCell component="th" scope="row">{order.orden}</TableCell>
                         <TableCell component="th" scope="row">{order.fecha}</TableCell>
                         <TableCell align="left">{order.responsable}</TableCell>
-                        <TableCell align="left">{rowWithButton == order.orden && !rejected && order.responsable.trim().toLowerCase() == userId.trim().toLowerCase() ?
+                        <TableCell align="left">{rowWithButton == order.orden &&
+                                                 !rejected && order.responsable.trim().toLowerCase() == userId.trim().toLowerCase() ?
+                                                <ApprovalBackdrop
+                                                proveedor={proveedor}
+                                                Orden={order.orden}
+                                                Aprobador={userId.toUpperCase()}
+                                                UltimaFila={order.orden == lastRow}
+                                                />:
+                                                (order.responsable.trim().toLowerCase() == "jmanchado" && userId.trim().toLowerCase() == "pmanchado") ?
                                                 <ApprovalBackdrop
                                                 proveedor={proveedor}
                                                 Orden={order.orden}

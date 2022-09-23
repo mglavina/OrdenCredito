@@ -2,6 +2,7 @@ import React,{useEffect} from 'react'
 import useGlobalContext from '../../hooks/useGlobalContext'
 import getUser from '../../core/getUser'
 import { getUserNameFromWindowsLogin, getIdFromMail} from '../../utils/utils'
+import Spinner from '../spinner/Spinner'
 
 const AuthHandler = ({children}) => {
 const {global,setGlobal} = useGlobalContext()
@@ -10,7 +11,7 @@ const {global,setGlobal} = useGlobalContext()
         getUser()
             .then(res => {
                 console.log("then");
-                const userName = getUserNameFromWindowsLogin(res.data[0]) 
+                const userName = getUserNameFromWindowsLogin(res.data[0])
                 const userId = getIdFromMail(res.data[0]) 
                 setGlobal({...global,user:res.data[0],userName,userId,error:false,loadingUser : false})
             }) 
@@ -22,9 +23,7 @@ const {global,setGlobal} = useGlobalContext()
     console.log(global);
     return (
         global?.loadingUser ?
-        <div> 
-            Loading
-        </div>
+        <Spinner />
         :
         <>
             {children}

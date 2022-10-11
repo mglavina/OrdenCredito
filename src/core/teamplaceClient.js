@@ -23,4 +23,8 @@ export default class TeamplaceClient {
         let res = await this.TeamplaceClient.post(`/api/OrdenesCredito/ValidarOrdenDeCredito/${identificacionExterno}/${resultado}`)
         return res.data
     }
+    postEnviarAvisoMail = async (ordenDeCredito) => {
+        let res = await this.TeamplaceClient.post(`/api/ordenescredito/enviarmailaviso`,ordenDeCredito)
+        return res.data
+    }
 }

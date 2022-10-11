@@ -36,15 +36,13 @@ const Detail = () => {
     const [client , setClient] = React.useState(null)
     const [loading , setLoading] = React.useState(false)
     const [error , setError] = React.useState(null)
+    const clienteTeamplace = new TeamplaceClient()
 
     const componentMount = async (id) => {
-      const client = new TeamplaceClient()
       try {
-          const data = await client.getGrillaDetail(id)
-          console.log(data);
+          const data = await clienteTeamplace.getGrillaDetail(id)
           let clientInfo = {}
           for (const entry of searchParams.entries()) {
-            console.log(entry);
             const objectOfEntry = {[entry[0]]:JSON.parse(entry[1])}
             clientInfo = {...clientInfo,...objectOfEntry} 
           }
@@ -53,7 +51,6 @@ const Detail = () => {
           setLoading(false)
           setError(null)    
       } catch (err) {
-        console.log(err);
         setLoading(false)
         setError(err)
       }
@@ -62,6 +59,7 @@ const Detail = () => {
         setLoading(true)
         componentMount(params.orderId)
     }, [])
+
   return (
     <DetailContainer>
             {loading && <Spinner />}

@@ -29,10 +29,8 @@ const ApprovalTableIdExterno = ({data,proveedor}) => {
             return aprobacion.orden
         }
       })
-      console.log(dataNotApproved);
       const rejected = data.find(aprobacion => aprobacion.rechazo == 1)
       setRejected(rejected)
-      console.log(dataNotApproved);
       setRowWithButton(Math.min(...dataNotApproved))
       setLastRow(Math.max(...data.map(aprobacion => aprobacion.orden))) 
     }, [])
@@ -69,13 +67,15 @@ const ApprovalTableIdExterno = ({data,proveedor}) => {
                                                  !rejected && order.responsable.trim().toLowerCase() == userId.trim().toLowerCase() ?
                                                 <ApprovalBackdrop
                                                 proveedor={proveedor}
+                                                pasos={data}
                                                 Orden={order.orden}
                                                 Aprobador={userId.toUpperCase()}
                                                 UltimaFila={order.orden == lastRow}
                                                 />:
-                                                (order.responsable.trim().toLowerCase() == "jmanchado" && userId.trim().toLowerCase() == "pmanchado") ?
+                                                (rowWithButton == order.orden && order.responsable.trim().toLowerCase() == "jmanchado" && userId.trim().toLowerCase() == "pmanchado") ?
                                                 <ApprovalBackdrop
                                                 proveedor={proveedor}
+                                                pasos={data}
                                                 Orden={order.orden}
                                                 Aprobador={userId.toUpperCase()}
                                                 UltimaFila={order.orden == lastRow}

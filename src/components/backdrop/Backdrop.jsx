@@ -6,6 +6,7 @@ import TeamplaceClient from '../../core/teamplaceClient';
 import styled from '@emotion/styled';
 import {useNavigate} from 'react-router-dom'
 import { RESULTADOS } from '../../constants/constant';
+import { obtenerSiguienteReponsable } from '../../utils/utils';
 
 const ButtonsContainer = styled.div`
     width: 100%;
@@ -60,7 +61,7 @@ const CloseButton = styled.button`
     cursor: pointer;
 `
 
-export default function ApprovalBackdrop({proveedor, Orden, Aprobador,UltimaFila}) {
+export default function ApprovalBackdrop({proveedor, Orden, Aprobador,UltimaFila,pasos}) {
   const [open, setOpen] = React.useState(false);
   const [rechazar, setRechazar] = React.useState(false);
   const [motivo, setMotivo] = React.useState(false);
@@ -76,7 +77,7 @@ export default function ApprovalBackdrop({proveedor, Orden, Aprobador,UltimaFila
   };
 
   const reloadPage = () => {
-navigate(0)
+    navigate(0)
   }
 
   const handleChangeTextArea = (e) => {
@@ -84,6 +85,12 @@ navigate(0)
   };
   const handleToggle = () => {
     setOpen(!open);
+  };
+
+  const enviarMail = async (proveedor,responsable) => {
+    const proveedorConNuevoResponsable = {...proveedor,responsable:responsable}
+    const resEnvioMail = await clientTeamplace.postEnviarAvisoMail(proveedorConNuevoResponsable)
+    return resEnvioMail
   };
 
   const rechazarOnClick = () => {
@@ -96,26 +103,31 @@ navigate(0)
 
   const postAprobacion = async () => {
       const resAprobacion = await clientAprobacion.postAprobacion(Orden, Aprobador)
+      const siguienteResponsable = obtenerSiguienteReponsable(pasos,Orden)
+      if(siguienteResponsable){
+        enviarMail(proveedor,siguienteResponsable)
+      }
       if(UltimaFila){
         const resTeamplace = await clientTeamplace.postValidateCreditOrder(proveedor.identificacionexterna, RESULTADOS.APROBADO)
-        console.log(resTeamplace);
       }
-      console.log(resAprobacion);
       reloadPage()
-  }
-
-  const postRechazo = async () => {
+    }
+    const postMail = async () => {
+      const siguienteResponsable = obtenerSiguienteReponsable(pasos,Orden)
+      if(siguienteResponsable){
+        enviarMail(proveedor,siguienteResponsable)
+      }
+    }
+    
+    const postRechazo = async () => {
     if(!motivo){
         setMotivo("error")
         return
     }
       const resAprobacion = await clientAprobacion.postRechazo(Orden, Aprobador,motivo)
       const resTeamplace = await clientTeamplace.postValidateCreditOrder(proveedor.identificacionexterna,RESULTADOS.RECHAZADO)
-      console.log(resAprobacion);
-      console.log(resTeamplace);
       reloadPage()
   }
-
   return (
     <div>
       <Button 

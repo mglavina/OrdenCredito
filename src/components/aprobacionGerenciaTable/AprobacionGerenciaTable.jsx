@@ -18,13 +18,11 @@ export default function AprobacionGerenciaTable({identificacionexterno,nivel,ger
         setLoading(true)
         axios.get(`${process.env.REACT_APP_BASE_URL_APROBACION}api/OrdenCredito/WorkFlow/${gerenciaCodigo}/${nivel}/${identificacionexterno}`)
         .then(({data}) => {
-            console.log(data);
             setAprobaciones(data)
             setLoading(false)
             setErrors(null)
         })
         .catch(({response}) => {
-            console.log(response);
             setLoading(false)
             setErrors(response)
         })

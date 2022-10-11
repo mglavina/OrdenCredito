@@ -7,10 +7,8 @@ const ApprovalTable = ({proveedor}) => {
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
     const componentMount = async () => {
-        console.log(proveedor);
         const client = new AprobacionClient(proveedor)
         try {
-            console.log();
             const dataIdExterno = await client.getGrillaIdExterno()
             setData(dataIdExterno)
             setLoading(false)

@@ -24,3 +24,11 @@ export const getIdFromMail = (windowsJson) => {
     const user = user_id.substring(0,user_id.indexOf("@"))
     return user
 }
+
+export const obtenerSiguienteReponsable = (data, pasoActual) => {
+    const siguientePaso = data.find(paso => paso.orden > pasoActual)
+    if (siguientePaso) {
+        return siguientePaso.responsable.trim()
+    }
+    return null
+}

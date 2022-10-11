@@ -34,7 +34,6 @@ const ProductoInfoContainer = styled.div`
 `;
 
 const DetailCard = ({detailInfo}) => {
-    console.log(detailInfo);
     const {
         producto="",
         productocodigo="",

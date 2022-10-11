@@ -18,7 +18,6 @@ const ApprovalTableIdGerencia = ({proveedor}) => {
     const [error, setError] = React.useState(null)
     const [loading, setLoading] = React.useState(false)
     const componentMount = async () => {
-        console.log("Proveedor",proveedor);
         const client = new AprobacionClient(proveedor)
         try {
             setLoading(false)
@@ -26,7 +25,6 @@ const ApprovalTableIdGerencia = ({proveedor}) => {
             setData(data)
         } catch (err) {
             setLoading(false)
-            console.log(JSON.stringify(err));
             setError(err)
         }
     }

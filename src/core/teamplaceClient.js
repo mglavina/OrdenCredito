@@ -27,4 +27,16 @@ export default class TeamplaceClient {
         let res = await this.TeamplaceClient.post(`/api/ordenescredito/enviarmailaviso`,ordenDeCredito)
         return res.data
     }
+    postCreateResgistroOrdenDeCredito = async (ordenDeCredito) => {
+        let res = await this.TeamplaceClient.post(`/api/ordencredito/createOrdenCredito`,ordenDeCredito)
+        return res.data
+    }
+    getOrdenesDeCreditoAprobadas = async () => {
+        let res = await this.TeamplaceClient.get(`/api/ordenescredito/OrdenCreditoAprobadas`)
+        return res.data
+    }
+    putAprobarRegistroOrdenesDeCredito = async (identificacionExterna) => {
+        let res = await this.TeamplaceClient.get(`/api/ordenescredito/OrdenCreditoAprobadas/${identificacionExterna}`)
+        return res.data
+    }
 }

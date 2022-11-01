@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import logoIram from "../../assets/logo/logo_iram-transparent-responsive.png";
 import useGlobalContext from '../../hooks/useGlobalContext';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { APROBACION_URL } from '../../constants/constant';
+import Avatar from '@mui/material/Avatar';
 
 const Logo = styled.img`
     width:3.5rem ;
@@ -13,7 +14,7 @@ const Logo = styled.img`
 
 const HeaderStyled = styled.header`
     width: 100%;
-    height: 7rem;
+    height: 6rem;
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -33,10 +34,27 @@ const LinkStyled = styled(Link)`
 
 const UserNameStyled = styled.div`
     display: flex;
-    margin-top: -1rem ;
     margin-right: 10px;
     align-items: center;
 `;
+
+const LogoStyled = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
+const NavStyled = styled.nav`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    a{
+        margin-right: 1rem;
+    }
+    .current{
+        text-decoration: underline;
+    }
+`;
+
 const LogoutButtonStyled = styled.button`
     margin: 0 10px;
     padding: 5px;
@@ -53,23 +71,29 @@ const handleLogout = () => {
     window.location.href = APROBACION_URL + "/.auth/logout"
 }
 
+
+
 const Header = () => {
     const {global,setGlobal} = useGlobalContext()
+    const location = useLocation();
+    console.log({location});
   return (
     <HeaderStyled>
-        <div>
+        <LogoStyled>
             <LinkStyled to={"/"}>
                 <Logo src={logoIram} alt="home" />
                 <span>Ordenes de credito</span>
             </LinkStyled>
-        </div>
+        </LogoStyled>
         {
             global?.userName 
             &&
         <UserNameStyled>
-            <span>
-                {global.userId}
-            </span>
+            <NavStyled>
+                <Link className={location.pathname === "/" && "current"} to={"/"}>Pendientes</Link>
+                <Link className={location.pathname === "/historico" && "current"} to={"/historico"}>Aprobadas</Link>
+            </NavStyled>
+            <Avatar title={global?.userName} children={`${global?.userName.split(' ')[0][0]}${global?.userName.split(' ')[1][0]}`} />
             <LogoutButtonStyled onClick={handleLogout}>
                 <LogoutIcon />
             </LogoutButtonStyled>

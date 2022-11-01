@@ -102,15 +102,21 @@ export default function ApprovalBackdrop({proveedor, Orden, Aprobador,UltimaFila
   };
 
   const postAprobacion = async () => {
+    try{
+      const resRegistroCreate = await clientTeamplace.postCreateResgistroOrdenDeCredito(proveedor)
       const resAprobacion = await clientAprobacion.postAprobacion(Orden, Aprobador)
       const siguienteResponsable = obtenerSiguienteReponsable(pasos,Orden)
       if(siguienteResponsable){
         enviarMail(proveedor,siguienteResponsable)
       }
       if(UltimaFila){
+        const resRegistroApproval = await clientTeamplace.putAprobarRegistroOrdenesDeCredito(proveedor.identificacionexterna)
         const resTeamplace = await clientTeamplace.postValidateCreditOrder(proveedor.identificacionexterna, RESULTADOS.APROBADO)
       }
       reloadPage()
+    }catch(error){
+      console.log({error});
+    }
     }
     const postMail = async () => {
       const siguienteResponsable = obtenerSiguienteReponsable(pasos,Orden)

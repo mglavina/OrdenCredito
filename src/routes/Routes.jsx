@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "../pages/home/Home.jsx";
 import Detail from "../pages/detail/Detail.jsx";
+import Historico from "../pages/historico/Historico"
 import useGlobalContext from "../hooks/useGlobalContext.jsx";
 import {APROBACION_URL} from "../constants/constant"
 function AppRoutes() {
@@ -24,6 +25,7 @@ function AppRoutes() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/detail/:orderId" element={<Detail />} />
+                    <Route path="/historico" element={<Historico />} />
                 </Routes>
             }
         </>

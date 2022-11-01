@@ -36,7 +36,7 @@ const HistoricoTable = () => {
     const handleClickRow = (order) => {
       setGlobal({...global,proveedor : order})
       const orderWithoutAmp = JSON.stringify(order).replace('&','%26')
-      navigate(`/detail/${order.identificacionExterna}/?ordenOrigin=${orderWithoutAmp}`)
+      navigate(`/detail/${order.identificacionexterna}/?ordenOrigin=${orderWithoutAmp}`)
   }
   return (
     <>
@@ -69,7 +69,7 @@ const HistoricoTable = () => {
                           sx={{ '&:last-child td, &:last-child th': { border: 0}}}
                           onClick={() => handleClickRow(order)}
                           >
-                              <TableCell component="th" scope="row">{order.identificacionExterna}</TableCell>
+                              <TableCell component="th" scope="row">{order.identificacionexterna}</TableCell>
                               <TableCell component="th" scope="row">{order.area}</TableCell>
                               <TableCell component="th" scope="row">{order.fecha}</TableCell>
                               <TableCell align="left">{Number(order.importetotal).toCurrency()}</TableCell>

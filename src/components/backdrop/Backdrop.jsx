@@ -110,8 +110,8 @@ export default function ApprovalBackdrop({proveedor, Orden, Aprobador,UltimaFila
         enviarMail(proveedor,siguienteResponsable)
       }
       if(UltimaFila){
-        const resRegistroApproval = await clientTeamplace.putAprobarRegistroOrdenesDeCredito(proveedor.identificacionexterna)
         const resTeamplace = await clientTeamplace.postValidateCreditOrder(proveedor.identificacionexterna, RESULTADOS.APROBADO)
+        const resRegistroApproval = await clientTeamplace.putAprobarRegistroOrdenesDeCredito(proveedor.identificacionexterna)
       }
       reloadPage()
     }catch(error){

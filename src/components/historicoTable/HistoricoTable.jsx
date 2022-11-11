@@ -75,7 +75,7 @@ const HistoricoTable = () => {
                               <TableCell align="left">{Number(order.importetotal).toCurrency()}</TableCell>
                               <TableCell align="left">{order.motivo}</TableCell>
                               <TableCell align="left">{order.proveedor}</TableCell>
-                              <TableCell align="left">{order.fechaAprobacion}</TableCell>
+                              <TableCell align="left">{order.fechaAprobacion && order.fechaAprobacion.split("T")[0]}</TableCell>
                               <TableCell align="left">{order.docVinculado}</TableCell>
                               <TableCell align="left">{Number(order.docVinculado_Importe).toCurrency()}</TableCell>
                           </TableRow>

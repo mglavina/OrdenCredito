@@ -36,7 +36,7 @@ export default class TeamplaceClient {
         return res.data
     }
     putAprobarRegistroOrdenesDeCredito = async (identificacionExterna) => {
-        let res = await this.TeamplaceClient.get(`/api/ordenescredito/OrdenCreditoAprobadas/${identificacionExterna}`)
+        let res = await this.TeamplaceClient.put(`/api/ordenescredito/OrdenCreditoAprobadas/${identificacionExterna}`)
         return res.data
     }
 }

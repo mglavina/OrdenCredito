@@ -22,7 +22,7 @@ export default class AprobacionClient {
         return res.data
     }
     getGrillaIdGerencia = async () => {
-        let res = await this.AprobacionCliente.get(`/api/OrdenCredito/WorkFlow/${this.Orden.gerenciacodigo}/${this.OrdenNivel}/${this.Orden.transaccionid}`)
+        let res = await this.AprobacionCliente.get(`/api/OrdenCredito/WorkFlow/${this.Orden.gerenciacodigo}/${this.OrdenNivel}/${this.Orden.transaccionid}/${this.Orden.area.trim()}`)
         return res.data
     }
     postAprobacion = async (Orden,Aprobador) => {

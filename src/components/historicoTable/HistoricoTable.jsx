@@ -51,13 +51,14 @@ const HistoricoTable = () => {
                       >
                           <TableCell sx={{ width: 120 }}>N° de orden</TableCell>
                           <TableCell>Area</TableCell>
-                          <TableCell sx={{ width: 110 }}>Fecha</TableCell>
+                          <TableCell>Fecha</TableCell>
                           <TableCell align="left">Importe Total</TableCell>
                           <TableCell align="left">Motivo</TableCell>
                           <TableCell align="left">Cliente</TableCell>
                           <TableCell align="left">Fecha de Aprobacion</TableCell>
-                          <TableCell align="left">N° Documento</TableCell>
-                          <TableCell align="left">Importe NC</TableCell>
+                          <TableCell align="left">Fecha NC</TableCell>
+                          <TableCell align="left">Numero NC</TableCell>
+                          <TableCell align="left">Monto NC</TableCell>
                       </TableRow>
                       </TableHead>
                       <TableBody
@@ -75,7 +76,8 @@ const HistoricoTable = () => {
                               <TableCell align="left">{Number(order.importetotal).toCurrency()}</TableCell>
                               <TableCell align="left">{order.motivo}</TableCell>
                               <TableCell align="left">{order.proveedor}</TableCell>
-                              <TableCell align="left">{order.fechaAprobacion && order.fechaAprobacion.split("T")[0]}</TableCell>
+                              <TableCell align="left">{order.fechaAprobacion && order.fechaAprobacion.split("T")[0].split("-").reverse().join("-")}</TableCell>
+                              <TableCell align="left">{order.docVinculado_Fecha}</TableCell>
                               <TableCell align="left">{order.docVinculado}</TableCell>
                               <TableCell align="left">{Number(order.docVinculado_Importe).toCurrency()}</TableCell>
                           </TableRow>

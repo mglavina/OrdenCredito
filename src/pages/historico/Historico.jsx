@@ -7,8 +7,9 @@ const HistoricoContainer = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 80vw;
+    width: 90vw;
     margin: 0 auto;
+    margin-top: 2rem;
 `;
 
 const Home = () => {
